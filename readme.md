@@ -65,9 +65,17 @@ Serve para definir alias para o nome canónico, é útil para suministrar nomes 
 
 8. Cómo podo facer para que a configuración dun contenedor DNS non se borre se creo outro contenedor?
 
+No arquivo `ǹamed.conf` debemos engadir o seguinte:
+
+docker run -d \
+  --name dns-server \
+  -v /path/to/your/dns/config:/etc/bind \
+  -v /path/to/your/dns/data:/var/cache/bind \
+  your-dns-image
 
 
-9. Engade unha zoa tendaelectronica.int no teu docker DNS que teña:
+
+10. Engade unha zoa tendaelectronica.int no teu docker DNS que teña:
 
 Debemos modificar o arquivo `named.conf.local` para engadir a zoa.
 
