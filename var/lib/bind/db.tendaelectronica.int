@@ -1,0 +1,13 @@
+$TTL 86400 ; # Tiempo de vida (TTL) de los registros en segundos
+@ IN SOA ns.tendaelectronica.in some.email.address. (
+2024111401 ; Serial #número de versión del archivo de zona
+3600 ; Refresh #tiempo que un secundario espera para actualizar la zona
+1800 ; Retry #tiempo de espera en caso de fallo para reintentar
+36000 ; Expire #tiempo después del cual la zona se considera no válida
+86400 ; Minimum TTL #tiempo mínimo de caché para registros negativos
+)
+@ IN NS ns.tendaelectronica.int. # NS: Servidor de nombres de la zona
+ns IN A 172.16.0.1 # A: Dirección IP del servidor de nombres principal
+www IN A 172.16.0.3 # A: Dirección IP del servidor www.tendaelectronica.int.
+alias IN CNAME www # CNAME: Alias de www, permite que alias.tendaelectronica.int apunte a www.practica7.int.
+texto IN TXT "1234ASDF" # TXT: Registro de texto para información adicional de la zona.

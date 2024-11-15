@@ -1,0 +1,7 @@
+zone "tendaelectronica.int" {
+        type master; #Indicamos que o servidor será o principal na zona
+        file "/var/lib/bind/db.tendaelectronica.int"; #Ruta ao ficheiro que contén os rexistros DNS na zona
+        allow-query {
+                any;
+                };
+        }; #Calquera dispositivo pode realizar consultas DNS

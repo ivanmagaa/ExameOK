@@ -1,0 +1,37 @@
+services:
+  #Servizos que se executarán no contenedor
+  bind9: #Como queremos chamar nos o servizo
+    image: internetsystemsconsortium/bind9:9.18 #Imaxe que utilizaremos no contenedor
+    container_name: Exame_bind9 #Nome específico do contenedor
+    ports:
+      #Mapeo dos portos host:contenedor
+      - 54:53/udp
+      - 54:53/tcp
+      - 127.0.0.1:953:953/tcp #Neste só pertmite conexións desde localhost
+    volumes:
+      #Volumes onde se montará o contenedor
+      - ./etc/bind:/etc/bind
+      - ./var/cache/bind:/var/cache/bind
+      - ./var/lib/bind:/var/lib/bind
+    restart: always #Esta opción indica que ó contenedor debe reiniciarse en ciertas condiciones
+    networks:
+      P6_network:
+        ipv4_address: 172.16.0.2
+  cliente:
+    image: alpine #Imaxe do cliente
+    container_name: Exame1_alpine #Nome do container
+    tty: true
+    stdin_open: true
+    networks:
+      P6_network: #Nome da rede
+        ipv4_address: 172.16.0.3 #IP que lle otorgamos ao cliente
+    dns:
+      - 172.16.0.2 #IP do servidor DNS
+networks:
+  P6_network: #Nome da rede
+    driver: bridge #Tipo de rede
+    ipam:
+      config:
+        - subnet: 172.16.0.0/16 #Rango de enderezos IP
+          ip_range: 172.16.0.0/24 #Subrango de enderezos
+          gateway: 172.16.8.254 #Dirección gateway

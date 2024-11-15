@@ -1,0 +1,16 @@
+options {
+        directory "/var/cache/bind"; #Directorio onde se almacenarán os datos de caché
+        dnssec-validation no;
+        forwarders {
+                8.8.8.8; #DNS de Google
+                1.1.1.1; #DNS de Cloudflare
+         };
+         forward only; #Indicamos que as consultas que non podan resolverse de una forma local serán reenviadas aos servidores indicados arriba
+
+        listen-on { any; }; #O servidor escoitará todas as interface IPv4 dispoñibles no servidor
+        listen-on-v6 { any; }; #O servidor escoitará todas as interface IPv6 dispoñibles no servidor
+
+        allow-query {
+                any;
+        }; #Calquera dispositivo pode realizar consultas DNS
+};
